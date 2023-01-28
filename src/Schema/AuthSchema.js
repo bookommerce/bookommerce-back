@@ -12,3 +12,8 @@ export const signUpSchema = joi.object({
     passwordConfirm: joi.string().valid(joi.ref('password'), "As senhas não coincidem").required(),
     address: joi.string().required()
 }) 
+
+export const loginSchema = joi.object({
+    email: joi.string().email().required(),
+    password: joi.string().required()
+}) 
