@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt"
 import db from "../Config/database.js";
-import { v4 as uuidV4 } from "uuid"
+import jwt from 'jsonwebtoken';
 
 export async function signUp(req, res) {
     const { name, email, password, address } = req.body
@@ -28,13 +28,17 @@ export async function signUp(req, res) {
 
 export async function signIn(req, res) {
     const { email, password } = req.body
-
+    
     try {
         const user = await db.collection("users").findOne({ email })
         
         if (user && bcrypt.compareSync(password, user.password)) {
+            
+            const secretKey = `${process.env.JWT_SECRET}`;
 
-            const token = uuidV4();
+            const expiresIn = { expiresIn: 60*60*24*10 }
+
+            const token = jwt.sign(user, secretKey, expiresIn);
            
             await db.collection("sessions").insertOne({
                 userId: user._id,
@@ -43,7 +47,7 @@ export async function signIn(req, res) {
 
             res.locals.token = token;
 
-            return res.status(200).send({ token });
+            return res.status(200).send({ id: user._id, name: user.name, token });
         } else {
             return res.status(401).send("Usuário ou senha incorretos");
         }
