@@ -1,4 +1,3 @@
-import { json } from "express";
 import { ObjectId } from "mongodb";
 import db from "../Config/database.js";
 
