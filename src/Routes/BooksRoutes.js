@@ -5,11 +5,11 @@ import { getBooks, getCategories, getBookById, getBooksByCategory } from "../Con
 const BooksRouter = Router();
 
 BooksRouter.get("/books", validateUser, getBooks);
-BooksRouter.get("/books/category", getBooksByCategory);
-BooksRouter.get("/book/id", getBookById);
+BooksRouter.get("/books/category", validateUser, getBooksByCategory);
+BooksRouter.get("/book/id", validateUser, getBookById);
 
 
-BooksRouter.get("/categories", getCategories);
+BooksRouter.get("/categories", validateUser, getCategories);
 
 
 
