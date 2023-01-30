@@ -1,4 +1,3 @@
-import { json } from "express";
 import { ObjectId } from "mongodb";
 import db from "../Config/database.js";
 
@@ -24,9 +23,9 @@ export async function getBooksByCategory(req, res) {
 }
 
 export async function getBookById(req, res) {
-    const { idbook } = req.headers;
+    const { bookid } = req.headers;
     try {
-        const book = await db.collection("books").findOne({ _id: ObjectId(idbook) });
+        const book = await db.collection("books").findOne({ _id: ObjectId(bookid) });
         return res.status(200).send(book);
     } catch (error) {
         console.log(error);
