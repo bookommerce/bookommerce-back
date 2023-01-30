@@ -4,7 +4,7 @@ import { validateUser } from "../Middleware/SchemaMiddleware.js";
 
 const PaymentRouter = Router();
 
-PaymentRouter.post("/address", validateUser, PostPayment);
-PaymentRouter.get("/address", validateUser, GetPayment);
+PaymentRouter.post("/payment", validateUser, PostPayment);
+PaymentRouter.get("/payment", validateUser, GetPayment);
 
 export default PaymentRouter;
